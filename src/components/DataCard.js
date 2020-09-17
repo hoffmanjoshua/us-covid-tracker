@@ -12,6 +12,7 @@ import {
   MenuItem,
   InputLabel,
   Link,
+  Divider,
 } from "@material-ui/core";
 import NumberFormat from "react-number-format";
 
@@ -78,66 +79,75 @@ const DataCard = (props) => {
 
   return (
     <div>
-      <Card>
-        <CardContent>
-          <Typography color="textSecondary" gutterBottom>
-            Coronavirus Data for
-          </Typography>
-          <Typography variant="h5" component="h2">
-            {props.data.state}
-          </Typography>
-          <hr />
-          <Grid container spacing={2}>
-            <Grid item>
-              <Typography color="textPrimary">New Cases</Typography>
-              <Typography variant="body1" component="p">
-                <strong>
-                  <NumberFormat
-                    value={props.data.positiveIncrease}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                  />
-                </strong>
-                <br />
+      <Box>
+        <Card>
+          <CardContent>
+            <Box p={2}>
+              <Typography color="textSecondary" gutterBottom>
+                Coronavirus Data for
               </Typography>
-            </Grid>
-            <Grid item>
-              <Typography color="textPrimary">
-                Currently Hospitalized
+              <Typography variant="h5" component="h2">
+                {props.data.state}
               </Typography>
-              <Typography variant="body1" component="p">
-                <strong>
-                  <NumberFormat
-                    value={props.data.hospitalizedCurrently}
-                    displayType={"text"}
-                    thousandSeparator={true}
-                  />
-                </strong>
-                <br />
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <CardActions>
-          <Box margin="auto">
-            <InputLabel>State:</InputLabel>
-            <Select
-              value={props.currentState}
-              onChange={(e) => {
-                props.stateSelChange(e.target.value);
-              }}
-            >
-              {states.map((stateAbbrev) => (
-                <MenuItem value={stateAbbrev[1]}>{stateAbbrev[1]}</MenuItem>
-              ))}
-            </Select>
-          </Box>
-        </CardActions>
-      </Card>
+            </Box>
+            <Divider />
+            <Box p={1}>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <Typography color="textPrimary">New Cases</Typography>
+                  <Typography variant="body1" component="p">
+                    <strong>
+                      <NumberFormat
+                        value={props.data.positiveIncrease}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                      />
+                    </strong>
+                    <br />
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography color="textPrimary">
+                    Currently Hospitalized
+                  </Typography>
+                  <Typography variant="body1" component="p">
+                    <strong>
+                      <NumberFormat
+                        value={props.data.hospitalizedCurrently}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                      />
+                    </strong>
+                    <br />
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Box margin="auto">
+              <InputLabel>State:</InputLabel>
+              <Select
+                color="primary"
+                value={props.currentState}
+                onChange={(e) => {
+                  props.stateSelChange(e.target.value);
+                }}
+              >
+                {states.map((stateAbbrev) => (
+                  <MenuItem value={stateAbbrev[1]}>{stateAbbrev[1]}</MenuItem>
+                ))}
+              </Select>
+            </Box>
+          </CardActions>
+        </Card>
+      </Box>
       <Box mt={1}>
         <Typography variant={"body2"} color={"textSecondary"}>
-          Data from{" "}
-          {props.data.date ? yyyymmdd(props.data.date.toString()) : "n/a"}
+          <i>
+            Data from{" "}
+            {props.data.date ? yyyymmdd(props.data.date.toString()) : "n/a"}
+          </i>
         </Typography>
         <Typography variant={"body2"} color={"textSecondary"}>
           Source:{" "}
